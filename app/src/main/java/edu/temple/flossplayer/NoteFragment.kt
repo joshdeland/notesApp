@@ -8,27 +8,27 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 
-class BookFragment : Fragment() {
+class NoteFragment : Fragment() {
     private lateinit var titleTextView: TextView
-    private lateinit var authorTextView: TextView
+    private lateinit var bodyTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_note, container, false).apply {
             titleTextView = findViewById(R.id.titleTextView)
-            authorTextView = findViewById(R.id.bodyTextView)
+            bodyTextView = findViewById(R.id.bodyTextView)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ViewModelProvider(requireActivity())[BookViewModel::class.java]
-            .getSelectedBook()?.observe(requireActivity()) {updateBook(it)}
+        ViewModelProvider(requireActivity())[NoteViewModel::class.java]
+            .getSelectedNote()?.observe(requireActivity()) {updateNote(it)}
     }
 
-    private fun updateBook(book: Note?) {
-        book?.run {
+    private fun updateNote(note: Note?) {
+        note?.run {
             titleTextView.text = title
-            authorTextView.text = body
+            bodyTextView.text = body
         }
     }
 

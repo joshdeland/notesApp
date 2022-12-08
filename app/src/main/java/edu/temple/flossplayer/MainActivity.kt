@@ -3,23 +3,29 @@ package edu.temple.flossplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var createNoteButton: FloatingActionButton
 
     private val isSingleContainer : Boolean by lazy{
         findViewById<View>(R.id.container2) == null
     }
 
-    private val bookViewModel : BookViewModel by lazy {
-        ViewModelProvider(this)[BookViewModel::class.java]
+    private val noteViewModel : NoteViewModel by lazy {
+        ViewModelProvider(this)[NoteViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bookViewModel.setBookList(getBookList())
+        createNoteButton = findViewById(R.id.floatingActionButton)
+
+        noteViewModel.setNoteList(getNoteList())
 
         // If we're switching from one container to two containers
         // clear BookPlayerFragment from container1
@@ -30,12 +36,12 @@ class MainActivity : AppCompatActivity() {
         // If this is the first time the activity is loading, go ahead and add a BookListFragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.container1, BookListFragment())
+                .add(R.id.container1, NoteListFragment())
                 .commit()
         } else
         // If activity loaded previously, there's already a BookListFragment
         // If we have a single container and a selected book, place it on top
-            if (isSingleContainer && bookViewModel.getSelectedBook()?.value != null) {
+            if (isSingleContainer && noteViewModel.getSelectedNote()?.value != null) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container1, BookPlayerFragment())
                     .setReorderingAllowed(true)
@@ -51,8 +57,8 @@ class MainActivity : AppCompatActivity() {
 
 
         // Respond to selection in portrait mode using flag stored in ViewModel
-        bookViewModel.getSelectedBook()?.observe(this){
-            if (!bookViewModel.hasViewedSelectedBook()) {
+        noteViewModel.getSelectedNote()?.observe(this){
+            if (!noteViewModel.hasViewedSelectedNote()) {
                 if (isSingleContainer) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.container1, BookPlayerFragment())
@@ -60,23 +66,23 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack(null)
                         .commit()
                 }
-                bookViewModel.markSelectedBookViewed()
+                noteViewModel.markSelectedNoteViewed()
             }
         }
     }
 
     override fun onBackPressed() {
         // BackPress clears the selected book
-        bookViewModel.clearSelectedBook()
+        noteViewModel.clearSelectedNote()
         super.onBackPressed()
     }
 
-    private fun getBookList() : BookList {
-        val bookList = BookList()
+    private fun getNoteList() : NoteList {
+        val noteList = NoteList()
         repeat (10) {
-            bookList.add(Note("Book ${it + 1}", "Author ${10 - it}"))
+            noteList.add(Note("Note title ${it + 1}", "Body ${10 - it}"))
         }
 
-        return bookList
+        return noteList
     }
 }

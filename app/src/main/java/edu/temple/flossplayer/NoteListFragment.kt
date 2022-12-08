@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class BookListFragment : Fragment() {
+class NoteListFragment : Fragment() {
 
-    private lateinit var bookViewModel : BookViewModel
+    private lateinit var noteViewModel : NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bookViewModel = ViewModelProvider(requireActivity())[BookViewModel::class.java]
+        noteViewModel = ViewModelProvider(requireActivity())[NoteViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -25,7 +26,7 @@ class BookListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_list, container, false)
+        return inflater.inflate(R.layout.fragment_note_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,49 +34,49 @@ class BookListFragment : Fragment() {
 
         val onClick: (Note) -> Unit = {
             // Update the ViewModel
-                book: Note ->
-            bookViewModel.setSelectedBook(book)
+                note: Note ->
+            noteViewModel.setSelectedNote(note)
             // Inform the activity of the selection so as to not have the event replayed
             // when the activity is restarted
         }
 
         with(view as RecyclerView) {
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = GridLayoutManager(requireActivity(), 2)
 
-            bookViewModel.getBookList().observe(requireActivity()) {
-                adapter = BookListAdapter(it, onClick)
+            noteViewModel.getNoteList().observe(requireActivity()) {
+                adapter = NoteListAdapter(it, onClick)
             }
         }
 
     }
 
-    class BookListAdapter (_bookList: BookList, _onClick: (Note) -> Unit) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
-        private val bookList = _bookList
+    class NoteListAdapter (_noteList: NoteList, _onClick: (Note) -> Unit) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
+        private val noteList = _noteList
         private val onClick = _onClick
 
-        inner class BookViewHolder (layout : View): RecyclerView.ViewHolder (layout) {
+        inner class NoteViewHolder (layout : View): RecyclerView.ViewHolder (layout) {
             val titleTextView : TextView = layout.findViewById(R.id.titleTextView)
             val authorTextView: TextView = layout.findViewById(R.id.bodyTextView)
 
             init {
                 layout.setOnClickListener {
-                    onClick(bookList[adapterPosition])
+                    onClick(noteList[adapterPosition])
                 }
             }
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-            return BookViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.booklist_items_layout, parent, false))
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+            return NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.notelist_items_layout, parent, false))
         }
 
-        // Bind the book to the holder along with the values for the views
-        override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-            holder.titleTextView.text = bookList[position].title
-            holder.authorTextView.text = bookList[position].body
+        // Bind the note to the holder along with the values for the views
+        override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+            holder.titleTextView.text = noteList[position].title
+            holder.authorTextView.text = noteList[position].body
         }
 
         override fun getItemCount(): Int {
-            return bookList.size()
+            return noteList.size()
         }
 
     }
