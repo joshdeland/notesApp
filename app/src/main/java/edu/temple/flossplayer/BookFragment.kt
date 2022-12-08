@@ -13,9 +13,9 @@ class BookFragment : Fragment() {
     private lateinit var authorTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_book, container, false).apply {
+        return inflater.inflate(R.layout.fragment_note, container, false).apply {
             titleTextView = findViewById(R.id.titleTextView)
-            authorTextView = findViewById(R.id.authorTextView)
+            authorTextView = findViewById(R.id.bodyTextView)
         }
     }
 
@@ -25,10 +25,10 @@ class BookFragment : Fragment() {
             .getSelectedBook()?.observe(requireActivity()) {updateBook(it)}
     }
 
-    private fun updateBook(book: Book?) {
+    private fun updateBook(book: Note?) {
         book?.run {
             titleTextView.text = title
-            authorTextView.text = author
+            authorTextView.text = body
         }
     }
 

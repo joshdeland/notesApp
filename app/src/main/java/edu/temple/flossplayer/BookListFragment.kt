@@ -31,9 +31,9 @@ class BookListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val onClick: (Book) -> Unit = {
+        val onClick: (Note) -> Unit = {
             // Update the ViewModel
-                book: Book ->
+                book: Note ->
             bookViewModel.setSelectedBook(book)
             // Inform the activity of the selection so as to not have the event replayed
             // when the activity is restarted
@@ -49,13 +49,13 @@ class BookListFragment : Fragment() {
 
     }
 
-    class BookListAdapter (_bookList: BookList, _onClick: (Book) -> Unit) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
+    class BookListAdapter (_bookList: BookList, _onClick: (Note) -> Unit) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
         private val bookList = _bookList
         private val onClick = _onClick
 
         inner class BookViewHolder (layout : View): RecyclerView.ViewHolder (layout) {
             val titleTextView : TextView = layout.findViewById(R.id.titleTextView)
-            val authorTextView: TextView = layout.findViewById(R.id.authorTextView)
+            val authorTextView: TextView = layout.findViewById(R.id.bodyTextView)
 
             init {
                 layout.setOnClickListener {
@@ -71,7 +71,7 @@ class BookListFragment : Fragment() {
         // Bind the book to the holder along with the values for the views
         override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
             holder.titleTextView.text = bookList[position].title
-            holder.authorTextView.text = bookList[position].author
+            holder.authorTextView.text = bookList[position].body
         }
 
         override fun getItemCount(): Int {

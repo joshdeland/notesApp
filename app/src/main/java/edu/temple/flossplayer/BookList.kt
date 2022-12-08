@@ -2,16 +2,16 @@ package edu.temple.flossplayer
 
 class BookList {
 
-    private val bookList : ArrayList<Book> by lazy {
+    private val bookList : ArrayList<Note> by lazy {
         ArrayList()
     }
 
-    fun add(book: Book) {
+    fun add(book: Note) {
         bookList.add(book)
     }
 
-    fun remove (book: Book) {
-        bookList.remove(book)
+    fun remove (note: Note) {
+        bookList.remove(note)
     }
 
     operator fun get(index: Int) = bookList[index]

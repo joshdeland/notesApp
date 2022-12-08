@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class BookViewModel : ViewModel() {
 
-    private val selectedBook: MutableLiveData<Book>? by lazy {
+    private val selectedBook: MutableLiveData<Note>? by lazy {
         MutableLiveData()
     }
 
@@ -17,11 +17,11 @@ class BookViewModel : ViewModel() {
     // Flag to determine if one-off event should fire
     private var viewedBook = false
 
-    fun getSelectedBook(): LiveData<Book>? {
+    fun getSelectedBook(): LiveData<Note>? {
         return selectedBook
     }
 
-    fun setSelectedBook(selectedBook: Book) {
+    fun setSelectedBook(selectedBook: Note) {
         viewedBook = false
         this.selectedBook?.value = selectedBook
     }

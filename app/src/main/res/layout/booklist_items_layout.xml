@@ -14,7 +14,7 @@
         tools:text="Title" />
 
     <TextView
-        android:id="@+id/authorTextView"
+        android:id="@+id/bodyTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
