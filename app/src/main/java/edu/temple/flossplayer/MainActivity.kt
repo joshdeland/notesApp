@@ -27,6 +27,13 @@ class MainActivity : AppCompatActivity() {
 
         noteViewModel.setNoteList(getNoteList())
 
+        createNoteButton.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container1, NewNoteFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         // If we're switching from one container to two containers
         // clear BookPlayerFragment from container1
         if (supportFragmentManager.findFragmentById(R.id.container1) is BookPlayerFragment) {
