@@ -62,6 +62,13 @@ class NewNoteFragment : Fragment() {
             // Add the new note to the noteViewModel
             noteViewModel.addNote(title, body, image)
 
+            val fragManager = requireActivity().supportFragmentManager
+            fragManager.beginTransaction()
+                .replace(R.id.container1, NoteListFragment())
+                .addToBackStack(null)
+                .commit()
+
+
         }
         return view
     }
