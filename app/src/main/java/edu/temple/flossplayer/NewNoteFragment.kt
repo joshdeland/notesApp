@@ -43,6 +43,8 @@ class NewNoteFragment : Fragment() {
         val selectImageButton = view.findViewById<Button>(R.id.selectImageButton)
         noteImageSelected.visibility = View.GONE
 
+        // Select image button initiates an intent call to open
+        // the device gallery for selection
         selectImageButton.setOnClickListener{
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(intent, 1)
@@ -53,8 +55,7 @@ class NewNoteFragment : Fragment() {
 
         saveButton.setOnClickListener {
 
-            // Get the title and body entered by the user
-
+            // Get the title, body, and image entered by the user
             val title = titleEditText.text.toString()
             val body = bodyEditText.text.toString()
             val image = imageUri
