@@ -1,5 +1,6 @@
 package edu.temple.flossplayer
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,8 +46,8 @@ class NoteViewModel : ViewModel() {
     fun setNoteList(noteList: NoteList) {
         this.noteList.value = noteList
     }
-    fun addNote(title: String, body: String) {
-        val newNote = Note(title,body)
+    fun addNote(title: String, body: String, imageURI: Uri?) {
+        val newNote = Note(title, body, imageURI)
         val updatedNoteList = noteList.value?.plus(newNote)
         if (updatedNoteList != null) {
             setNoteList(updatedNoteList)

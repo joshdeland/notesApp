@@ -1,3 +1,6 @@
 package edu.temple.flossplayer
 
-data class Note (val title: String, val body: String)
+import android.net.Uri
+
+
+data class Note(val title: String, val body: String, val imageURI: Uri?)

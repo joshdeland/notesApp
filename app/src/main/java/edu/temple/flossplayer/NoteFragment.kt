@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 
 class NoteFragment : Fragment() {
     private lateinit var titleTextView: TextView
@@ -18,7 +19,7 @@ class NoteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_note, container, false).apply {
             titleTextView = findViewById(R.id.titleTextView)
             bodyTextView = findViewById(R.id.bodyTextView)
-            imageView = findViewById(R.id.imageView)
+            imageView = findViewById(R.id.noteImageView)
         }
     }
 
@@ -32,6 +33,7 @@ class NoteFragment : Fragment() {
         note?.run {
             titleTextView.text = title
             bodyTextView.text = body
+            Picasso.get().load(imageURI).into(imageView)
         }
     }
 
