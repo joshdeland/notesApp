@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         // If we're switching from one container to two containers
         // clear BookPlayerFragment from container1
-        if (supportFragmentManager.findFragmentById(R.id.container1) is BookPlayerFragment) {
+        if (supportFragmentManager.findFragmentById(R.id.container1) is NoteFragment) {
             supportFragmentManager.popBackStack()
         }
 
@@ -50,16 +50,16 @@ class MainActivity : AppCompatActivity() {
         // If we have a single container and a selected book, place it on top
             if (isSingleContainer && noteViewModel.getSelectedNote()?.value != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container1, BookPlayerFragment())
+                    .replace(R.id.container1, NoteFragment())
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
                     .commit()
             }
 
         // If we have two containers but no BookPlayerFragment, add one to container2
-        if (!isSingleContainer && supportFragmentManager.findFragmentById(R.id.container2) !is BookPlayerFragment)
+        if (!isSingleContainer && supportFragmentManager.findFragmentById(R.id.container2) !is NoteFragment)
             supportFragmentManager.beginTransaction()
-                .add(R.id.container2, BookPlayerFragment())
+                .add(R.id.container2, NoteFragment())
                 .commit()
 
 
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             if (!noteViewModel.hasViewedSelectedNote()) {
                 if (isSingleContainer) {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container1, BookPlayerFragment())
+                        .replace(R.id.container1, NoteFragment())
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit()
