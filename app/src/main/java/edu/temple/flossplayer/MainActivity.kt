@@ -79,17 +79,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // BackPress clears the selected book
+        // BackPress clears the selected note
         noteViewModel.clearSelectedNote()
         super.onBackPressed()
     }
 
     private fun getNoteList() : NoteList {
-        val noteList = NoteList()
-        repeat (10) {
-            noteList.add(Note("Note title ${it + 1}", "Body ${10 - it}"))
-        }
-
+        val firstList = ArrayList<Note>()
+        val noteList = NoteList(firstList)
         return noteList
     }
 }

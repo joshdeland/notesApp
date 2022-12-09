@@ -48,6 +48,7 @@ class NoteListFragment : Fragment() {
             }
         }
 
+
     }
 
     class NoteListAdapter (_noteList: NoteList, _onClick: (Note) -> Unit) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {

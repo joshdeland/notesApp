@@ -45,4 +45,13 @@ class NoteViewModel : ViewModel() {
     fun setNoteList(noteList: NoteList) {
         this.noteList.value = noteList
     }
+    fun addNote(title: String, body: String) {
+        val newNote = Note(title,body)
+        val updatedNoteList = noteList.value?.plus(newNote)
+        if (updatedNoteList != null) {
+            setNoteList(updatedNoteList)
+        }
+
+
+    }
 }

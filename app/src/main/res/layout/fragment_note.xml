@@ -19,14 +19,23 @@
 
     <TextView
         android:id="@+id/bodyTextView"
-        android:layout_width="377dp"
-        android:layout_height="362dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="389dp"
+        android:layout_height="262dp"
+        android:layout_marginTop="40dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:text="book author" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="295dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="38dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

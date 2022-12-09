@@ -1,17 +1,18 @@
 package edu.temple.flossplayer
 
-class NoteList {
+class NoteList(private var noteList: ArrayList<Note>){
 
-    private val noteList : ArrayList<Note> by lazy {
-        ArrayList()
+
+
+    fun plus(note: Note) : NoteList {
+        val updatedList = noteList.toMutableList()
+        updatedList.add(note)
+        return NoteList(updatedList as ArrayList<Note>)
     }
 
-    fun add(note: Note) {
-        noteList.add(note)
-    }
+    fun setList(updatedNoteList: ArrayList<Note>) {
+        noteList = updatedNoteList
 
-    fun remove (note: Note) {
-        noteList.remove(note)
     }
 
     operator fun get(index: Int) = noteList[index]
